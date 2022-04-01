@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router()
-const ProductController = require('../controllers/ProductController')
+const UserController = require('../controllers/UserController')
 
 //Get all route
 
-router.get('/products', ProductController.getProducts)
+router.get('/users', UserController.getUsers)
 
 module.exports = {
     "router": router

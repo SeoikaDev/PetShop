@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const productRoutes = require('./routes/ProductRoutes')
 const userRoutes = require('./routes/UserRoutes')
 const authRoutes = require('./routes/AuthRoutes')
@@ -16,6 +17,8 @@ mongoose.connect('mongodb://localhost/PetShop', {
 
 //Middleware
 app.use(express.json())
+
+app.use(cors())
 
 app.use('/api/v1', productRoutes.router, userRoutes.router, authRoutes.router)
 

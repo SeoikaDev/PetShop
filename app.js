@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const env = require('dotenv').config()
 const productRoutes = require('./routes/ProductRoutes')
 const userRoutes = require('./routes/UserRoutes')
 const authRoutes = require('./routes/AuthRoutes')
@@ -10,7 +11,7 @@ const authRoutes = require('./routes/AuthRoutes')
 const app = express();
 
 //Database
-mongoose.connect('mongodb://localhost/PetShop', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });

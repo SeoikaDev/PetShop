@@ -25,16 +25,20 @@ const sign_up = async(req, res, next) => {
 const sign_in = async(req, res, next) => {
     const { username, password, email } = req.body;
     const user = await UserModel.findOne({
-        username: username,
-        email: email
+        $or: [{
+            username: username
+        }, {
+            email: email
+        }]
     }).lean();
     if (!user) {
         return res.json({ status: "error", error: "Invalid username or password" })
     }
-    console.log(user)
     if (await bcrypt.compare(password, user.password)) {
-        const token = jwt.sign({ id: user._id, email: user.email, username: user.username }, process.env.JWT_SECRET, { expiresIn: "12s" })
+        const token = jwt.sign({ id: user._id, email: user.email, username: user.username }, process.env.JWT_SECRET, { expiresIn: "15d" })
         return res.json({ status: "ok", data: token })
+    } else {
+        return res.json({ status: "error", error: "Invalid username or password" })
     }
 }
 

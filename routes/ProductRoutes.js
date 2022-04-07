@@ -7,6 +7,8 @@ const auth_middleware = require('../middleware/auth')
 
 router.get('/products', ProductController.getProducts)
 
+router.get('/products/category', ProductController.getProductsByCategory)
+
 router.get('/products/:productId', ProductController.getProductById)
 
 router.post('/products', auth_middleware.verify_admin_role, ProductController.addProduct)

@@ -24,4 +24,4 @@ app.use(cors())
 app.use('/api/v1', productRoutes.router, userRoutes.router, authRoutes.router)
 
 //Starting server
-app.listen(3000, console.log("Listening on port 3000"));
+app.listen(process.env.PORT, console.log("Listening on port 5000"));

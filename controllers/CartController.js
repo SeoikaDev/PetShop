@@ -39,7 +39,53 @@ const addProductToCart = async(req, res, next) => {
     }
 }
 
+//Update product amount
+const updateProductAmount = async(req, res, next) => {
+    try {
+        const { status, id, amount } = req.body;
+        const email = jwt.decode(req.headers['x-access-token']).email;
+        const user = await UserModel.findOne({ email: email }).lean()
+        if (!user) {
+            return res.json({ "status": "error", "error": "Could not found this user" });
+        }
+        for (var i = 0; i < user.cart.length; i++) {
+            if (user.cart[i].product == id) {
+                if (status === 'add') {
+                    user.cart[i].amount += amount;
+                    await UserModel.updateOne({ email: email }, user)
+                    break;
+                } else {
+                    user.cart[i].amount -= amount;
+                    await UserModel.updateOne({ email: email }, user)
+                    break;
+                }
+            }
+        }
+        return res.json({ "status": "ok", "info": "Updated amount of product" })
+    } catch (error) {
+        return res.json({ "status": "error", "error": error.message })
+    }
+}
+
+//Delete product from cart
+const deleteProductFromCart = async(req, res, next) => {
+    try {
+        const { id } = req.body;
+        const email = jwt.decode(req.headers['x-access-token']).email;
+        const user = await UserModel.findOne({ email: email }).lean()
+        if (!user) {
+            return res.json({ "status": "error", "error": "Could not found this user" });
+        }
+        user.cart = user.cart.filter(i => i.product == id);
+        await UserModel.updateOne({ email: email }, user)
+        return res.json({ "status": "ok", "info": "Removed product from cart" })
+    } catch (error) {
+        return res.json({ "status": "error", "error": error.message })
+    }
+}
 
 module.exports = {
-    addProductToCart
+    addProductToCart,
+    updateProductAmount,
+    deleteProductFromCart
 }

@@ -5,6 +5,7 @@ const env = require('dotenv').config()
 const productRoutes = require('./routes/ProductRoutes')
 const userRoutes = require('./routes/UserRoutes')
 const authRoutes = require('./routes/AuthRoutes')
+const cartRoutes = require('./routes/CartRoutes')
 
 
 //Create express app
@@ -21,7 +22,7 @@ app.use(express.json())
 
 app.use(cors())
 
-app.use('/api/v1', productRoutes.router, userRoutes.router, authRoutes.router)
+app.use('/api/v1', productRoutes.router, userRoutes.router, authRoutes.router, cartRoutes.router)
 
 //Starting server
 app.listen(process.env.PORT, console.log("Listening on port 5000"));

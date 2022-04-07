@@ -1,6 +1,12 @@
 const ProductModel = require('../models/Product')
-
-//Get all products
+const admin = require('firebase-admin')
+const service_account = require('../service-account-key.json')
+admin.initializeApp({
+    credential: admin.credential.cert(service_account),
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET
+});
+const bucket = admin.storage().bucket()
+    //Get all products
 const getProducts = async(req, res, next) => {
     try {
         const products = await ProductModel.find();

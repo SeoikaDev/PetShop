@@ -22,7 +22,27 @@ const UserSchema = new mongoose.Schema({
             ref: "Product"
         },
         amount: { type: Number, default: 0 }
-    }, { _id: false }]
+    }, { _id: false }],
+    favorite: [{
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        },
+        date: {
+            type: Date,
+            default: Date.now()
+        }
+    }],
+    history: [{
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
+        },
+        date: {
+            type: Date,
+            default: Date.now()
+        }
+    }],
 }, { collection: 'users' });
 
 module.exports = mongoose.model('User', UserSchema);

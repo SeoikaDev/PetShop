@@ -1,4 +1,4 @@
-const express = require('express');
+express = require('express');
 const router = express.Router()
 const ProductController = require('../controllers/ProductController')
 const auth_middleware = require('../middleware/auth')
@@ -6,6 +6,8 @@ const auth_middleware = require('../middleware/auth')
 //Get all route
 
 router.get('/products', ProductController.getProducts)
+
+router.get('/products/category', ProductController.getProductsByCategory)
 
 router.get('/products/:productId', ProductController.getProductById)
 

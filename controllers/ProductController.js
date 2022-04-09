@@ -1,7 +1,4 @@
-const { json } = require('express/lib/response');
 const ProductModel = require('../models/Product')
-
-//Get all products
 const getProducts = async(req, res, next) => {
     try {
         const products = await ProductModel.find();
@@ -17,6 +14,19 @@ const getProductById = async(req, res, next) => {
         const _id = req.params.productId
         const product = await ProductModel.findById(_id)
         return res.json({ "status": "ok", "data": product })
+    } catch (error) {
+        return res.json({ "status": "error", "error": error.message })
+    }
+}
+
+//Get products by category
+const getProductsByCategory = async(req, res, next) => {
+    try {
+        const { category } = req.body;
+        const products = await ProductModel.find({
+            category: category
+        });
+        return res.json({ "status": "ok", "data": products });
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })
     }
@@ -57,6 +67,7 @@ const deleteProduct = async(req, res, next) => {
 module.exports = {
     getProducts,
     getProductById,
+    getProductsByCategory,
     addProduct,
     updateProduct,
     deleteProduct

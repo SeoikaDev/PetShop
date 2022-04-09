@@ -10,7 +10,6 @@ const addProductToHistory = async(req, res, next) => {
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }
-        console.log(id)
         user.history = user.history.filter(e => e.product != id);
         await UserModel.updateOne({ email: email }, { history: user.history })
         user.history.push({

@@ -10,11 +10,9 @@ const CartController = require('../controllers/CartController');
 
 //Get all route
 
-router.post('/cart', auth_middleware.verify_user_role, CartController.addProductToCart);
+router.post('/cart', auth_middleware.verify_user_role, CartController.saveCart);
 
-router.put('/cart', auth_middleware.verify_user_role, CartController.updateProductAmount);
-
-router.delete('/cart', auth_middleware.verify_user_role, CartController.deleteProductFromCart);
+router.delete('/cart', auth_middleware.verify_user_role, CartController.deleteCart);
 
 module.exports = {
     "router": router

@@ -5,13 +5,14 @@ const product_routes = require('./ProductRoutes')
 const user_routes = require('./UserRoutes')
 const history_routes = require('./HistoryRoutes')
 const service_routes = require('./ServiceRoutes')
+const order_routes = require('./OrderRoutes')
 
 const express = require('express')
 
 const router = express.Router();
 
 const list_of_routers = [auth_routes, cart_routes, favorite_routes, product_routes,
-    user_routes, history_routes, service_routes
+    user_routes, history_routes, service_routes, order_routes
 ]
 
 list_of_routers.forEach(routes => router.use(routes.router))

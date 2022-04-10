@@ -43,6 +43,44 @@ const UserSchema = new mongoose.Schema({
             default: Date.now()
         }
     }],
+    order: [{
+        products: [{
+            product: {
+                type: String
+            },
+            amount: { type: Number, default: 0 }
+        }, {
+            default: []
+        }],
+        service: {
+            type: String,
+            default: ""
+        },
+        date: {
+            type: Date,
+            default: Date.now()
+        },
+        total_price: {
+            type: Number,
+            default: 0
+        },
+        payment_method: {
+            type: String,
+            default: "paypal"
+        },
+        payment_account: {
+            type: String,
+            default: ""
+        },
+        receive_method: {
+            type: String,
+            default: "at store"
+        },
+        status: {
+            type: String,
+            default: "Processed. Waiting for receiving"
+        }
+    }]
 }, { collection: 'users' });
 
 module.exports = mongoose.model('User', UserSchema);

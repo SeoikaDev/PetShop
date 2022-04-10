@@ -14,7 +14,7 @@ const getUsers = async(req, res, next) => {
 
 const getCurrentUser = async(req, res, next) => {
     try {
-        const email = jwt.decode(req.headers['x-access-token']).email;
+        const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).populate('cart.product')
             .populate('favorite.product').populate('history.product')
         if (!user) {
@@ -29,7 +29,7 @@ const getCurrentUser = async(req, res, next) => {
 const changeUserInformation = async(req, res, next) => {
     try {
         const { full_name, dob, phone_number } = req.body;
-        const email = jwt.decode(req.headers['x-access-token']).email;
+        const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });

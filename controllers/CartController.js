@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const addProductToCart = async(req, res, next) => {
     try {
         const { id, amount } = req.body;
-        const email = jwt.decode(req.headers['x-access-token']).email;
+        const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });
@@ -43,7 +43,7 @@ const addProductToCart = async(req, res, next) => {
 const updateProductAmount = async(req, res, next) => {
     try {
         const { status, id, amount } = req.body;
-        const email = jwt.decode(req.headers['x-access-token']).email;
+        const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });
@@ -71,7 +71,7 @@ const updateProductAmount = async(req, res, next) => {
 const deleteProductFromCart = async(req, res, next) => {
     try {
         const { id } = req.body;
-        const email = jwt.decode(req.headers['x-access-token']).email;
+        const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });

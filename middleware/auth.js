@@ -4,7 +4,8 @@ const UserModel = require('../models/User')
 const jwt = require('jsonwebtoken')
 
 const verify_user_role = (req, res, next) => {
-    const token = req.headers['x-access-token'];
+    const token = req.header('Authorization').split(' ')[1];
+    console.log(token)
     if (!token) {
         return res.status(403).send("A token is required for authentication")
     }
@@ -25,7 +26,7 @@ const verify_user_role = (req, res, next) => {
 }
 
 const verify_admin_role = (req, res, next) => {
-    const token = req.headers['x-access-token'];
+    const token = req.header('Authorization').split(' ')[1];
     if (!token) {
         return res.status(403).send("A token is required for authentication")
     }

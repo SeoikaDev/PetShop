@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const addProductToHistory = async(req, res, next) => {
     try {
         const { id } = req.body;
-        const email = jwt.decode(req.headers['x-access-token']).email;
+        const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });

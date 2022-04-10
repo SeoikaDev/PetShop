@@ -16,7 +16,7 @@ const getCurrentUser = async(req, res, next) => {
     try {
         const email = jwt.decode(req.headers['x-access-token']).email;
         const user = await UserModel.findOne({ email: email }).populate('cart.product')
-            //.populate('favorite.product').populate('history.product')
+            .populate('favorite.product').populate('history.product')
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }

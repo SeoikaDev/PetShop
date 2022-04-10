@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 //Save cart
 const saveCart = async(req, res, next) => {
     try {
-        const cart = req.body;
+        const cart = req.body.cart;
         const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {

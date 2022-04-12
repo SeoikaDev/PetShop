@@ -10,10 +10,19 @@ const addProductToFavorite = async(req, res, next) => {
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }
-        user.favorite.push({
-            product: id,
-            date: Date.now()
-        })
+        const favorite = user.favorite.filter(i => i.product == id);
+        if (favorite.length === 0) {
+            user.favorite.push({
+                product: id,
+                date: Date.now()
+            })
+        } else {
+            user.favorite = user.favorite.filter(i => i.product != id);
+            user.favorite.push({
+                product: id,
+                date: Date.now()
+            })
+        }
         await UserModel.updateOne({ email: email }, user)
         return res.json({ "status": "ok", "info": "Added product to favorite" })
     } catch (error) {
@@ -31,7 +40,7 @@ const deleteProductFromFavorite = async(req, res, next) => {
         if (!user) {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }
-        user.favorite = user.favorite.filter(i => i.product == id);
+        user.favorite = user.favorite.filter(i => i.product != id);
         await UserModel.updateOne({ email: email }, user)
         return res.json({ "status": "ok", "info": "Removed product from favorite" })
     } catch (error) {

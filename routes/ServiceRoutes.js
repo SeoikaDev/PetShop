@@ -11,11 +11,15 @@ router.get('/services/category', ServiceController.getServiceByCategory)
 
 router.get('/services/:serviceId', ServiceController.getServiceById)
 
-router.post('/services', auth_middleware.verify_admin_role, ServiceController.addService)
+router.post('/services',
+    auth_middleware.verify_admin_role,
+    ServiceController.addService)
 
-router.put('/services/', auth_middleware.verify_admin_role, ServiceController.updateService)
+router.put('/services/',
+    auth_middleware.verify_admin_role, ServiceController.updateService)
 
-router.delete('/services/', auth_middleware.verify_admin_role, ServiceController.deleteService)
+router.delete('/services/',
+    auth_middleware.verify_admin_role, ServiceController.deleteService)
 
 module.exports = {
     "router": router

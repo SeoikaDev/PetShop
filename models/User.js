@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema({
             type: Date,
             default: Date.now()
         }
-    }],
+    }, { _id: false }],
     history: [{
         product: {
             type: mongoose.Schema.Types.ObjectId,
@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
             type: Date,
             default: Date.now()
         }
-    }],
+    }, { _id: false }],
     order: [{
         products: [{
             product: {

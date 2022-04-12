@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const getUsers = async(req, res, next) => {
     try {
         const users = await UserModel.find().populate('cart.product').populate('favorite.product')
-            .populate('history.product').exec();
+            .populate('history.product')
         return res.json({ "status": "ok", "data": users })
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })

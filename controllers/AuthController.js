@@ -6,14 +6,16 @@ const node_mailer = require('nodemailer')
 const verification_generator = require('../utils/VerificationCodeGenerator')
 
 const sign_up = async(req, res, next) => {
-    const { username, password, email, role } = req.body
+    const { username, password, email, role, fullname, phoneNumber } = req.body
     const encPassword = await bcrypt.hash(password, 10)
     try {
         const user = await UserModel.create({
             username: username,
             password: encPassword,
             email: email,
-            role: role
+            role: role,
+            full_name: fullname,
+            phone_number: phoneNumber
         });
         const token = jwt.sign({ id: user._id, email: user.email, username: user.username, role: user.role }, process.env.JWT_SECRET, { expiresIn: "15d" })
         return res.json({ status: "ok", info: "create user successfully", token: token });

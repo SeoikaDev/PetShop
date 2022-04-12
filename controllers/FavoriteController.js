@@ -23,7 +23,9 @@ const addProductToFavorite = async(req, res, next) => {
                 date: Date.now()
             })
         }
-        await UserModel.updateOne({ email: email }, user)
+        await UserModel.updateOne({ email: email }, {
+            favorite: user.favorite
+        })
         return res.json({ "status": "ok", "info": "Added product to favorite" })
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })

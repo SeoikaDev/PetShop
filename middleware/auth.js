@@ -18,7 +18,7 @@ const verify_user_role = (req, res, next) => {
         }
     }
     const decoded = jwt.decode(token);
-    if (decoded.role === 'user') {
+    if (decoded.role === 'user' || decoded.role === 'admin') {
         return next();
     }
     return res.status(400).send("Invalid Role");

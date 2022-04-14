@@ -58,8 +58,8 @@ const updateService = async(req, res, next) => {
 //Delete service
 const deleteService = async(req, res, next) => {
     try {
-        const service = req.body;
-        await ServiceModel.deleteOne({ _id: service._id });
+        const id = req.params.id;
+        await ServiceModel.deleteOne({ _id: id });
         return res.json({ "status": "ok", "info": "Delete service successfully" })
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })

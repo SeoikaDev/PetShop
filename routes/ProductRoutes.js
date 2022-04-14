@@ -11,11 +11,11 @@ router.get('/products/category', ProductController.getProductsByCategory)
 
 router.get('/products/:productId', ProductController.getProductById)
 
-router.post('/products', auth_middleware.verify_admin_role, ProductController.addProduct)
+router.post('/products', ProductController.addProduct)
 
 router.put('/products/', auth_middleware.verify_admin_role, ProductController.updateProduct)
 
-router.delete('/products/', auth_middleware.verify_admin_role, ProductController.deleteProduct)
+router.delete('/products/:id', auth_middleware.verify_admin_role, ProductController.deleteProduct)
 
 module.exports = {
     "router": router

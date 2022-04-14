@@ -36,7 +36,7 @@ const addProductToFavorite = async(req, res, next) => {
 //Delete product from favorite
 const deleteProductFromFavorite = async(req, res, next) => {
     try {
-        const { id } = req.body;
+        const id = req.params.id;
         const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
         const user = await UserModel.findOne({ email: email }).lean()
         if (!user) {

@@ -57,8 +57,8 @@ const updateProduct = async(req, res, next) => {
 //Delete product
 const deleteProduct = async(req, res, next) => {
     try {
-        const product = req.body;
-        await ProductModel.deleteOne({ _id: product._id });
+        const id = req.params.id;
+        await ProductModel.deleteOne({ _id: id });
         return res.json({ "status": "ok", "info": "Delete product successfully" })
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })

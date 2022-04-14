@@ -14,7 +14,7 @@ router.post('/cart', auth_middleware.verify_user_role, CartController.addProduct
 
 router.put('/cart', auth_middleware.verify_user_role, CartController.updateProductAmount);
 
-router.delete('/cart', auth_middleware.verify_user_role, CartController.deleteProductFromCart);
+router.delete('/cart/:id', auth_middleware.verify_user_role, CartController.deleteProductFromCart);
 
 router.delete('/cart/delete-all', auth_middleware.verify_user_role, CartController.deleteCart);
 

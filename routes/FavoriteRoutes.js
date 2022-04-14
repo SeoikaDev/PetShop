@@ -12,7 +12,7 @@ const FavoriteController = require('../controllers/FavoriteController');
 
 router.post('/favorite', auth_middleware.verify_user_role, FavoriteController.addProductToFavorite);
 
-router.delete('/favorite', auth_middleware.verify_user_role, FavoriteController.deleteProductFromFavorite);
+router.delete('/favorite/:id', auth_middleware.verify_user_role, FavoriteController.deleteProductFromFavorite);
 
 module.exports = {
     "router": router

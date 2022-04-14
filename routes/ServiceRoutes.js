@@ -16,10 +16,12 @@ router.post('/services',
     ServiceController.addService)
 
 router.put('/services/',
-    auth_middleware.verify_admin_role, ServiceController.updateService)
+    auth_middleware.verify_admin_role,
+    ServiceController.updateService)
 
-router.delete('/services/',
-    auth_middleware.verify_admin_role, ServiceController.deleteService)
+router.delete('/services/:id',
+    auth_middleware.verify_admin_role,
+    ServiceController.deleteService)
 
 module.exports = {
     "router": router

@@ -1,4 +1,5 @@
 const UserModel = require('../models/User')
+const ServiceModel = require('../models/Service')
 const jwt = require('jsonwebtoken')
 
 //Add order
@@ -29,10 +30,11 @@ const addOrder = async(req, res, next) => {
             await UserModel.updateOne({ email: email }, { order: user.order })
             return res.json({ "status": "ok", "info": "To Order: product" })
         } else {
+            const service = await ServiceModel.findOne({ _id: service }).lean();
             user.order.push({
                 products: [],
                 service: service,
-                total_price: total_price,
+                total_price: service.price,
                 payment_method: payment_method,
                 payment_account: payment_account,
                 receive_method: receive_method

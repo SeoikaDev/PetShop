@@ -51,11 +51,11 @@ const updateProductAmount = async(req, res, next) => {
         for (var i = 0; i < user.cart.length; i++) {
             if (user.cart[i].product == id) {
                 if (status === 'add') {
-                    user.cart[i].amount += amount;
+                    user.cart[i].amount = amount;
                     await UserModel.updateOne({ email: email }, user)
                     break;
                 } else {
-                    user.cart[i].amount -= amount;
+                    user.cart[i].amount = amount;
                     await UserModel.updateOne({ email: email }, user)
                     break;
                 }

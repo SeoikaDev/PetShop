@@ -30,11 +30,11 @@ const addOrder = async(req, res, next) => {
             await UserModel.updateOne({ email: email }, { order: user.order })
             return res.json({ "status": "ok", "info": "To Order: product" })
         } else {
-            const service = await ServiceModel.findOne({ _id: service }).lean();
+            const tmp = await ServiceModel.findOne({ _id: service }).lean();
             user.order.push({
                 products: [],
                 service: service,
-                total_price: service.price,
+                total_price: tmp.price,
                 payment_method: payment_method,
                 payment_account: payment_account,
                 receive_method: receive_method

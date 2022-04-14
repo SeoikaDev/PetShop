@@ -77,7 +77,7 @@ const deleteProductFromCart = async(req, res, next) => {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }
         user.cart = user.cart.filter(i => i.product != id);
-        await UserModel.updateOne({ email: email }, user)
+        await UserModel.updateOne({ email: email }, { cart: user.cart })
         return res.json({ "status": "ok", "info": "Removed product from cart" })
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })
@@ -93,8 +93,8 @@ const deleteCart = async(req, res, next) => {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }
         user.cart = []
-        await UserModel.updateOne({ email: email }, { cart: user.cart })
-        return res.json({ "status": "ok", "info": "Removed product from cart" })
+        await UserModel.updateOne({ email: email }, { cart: user.cart });
+        return res.json({ "status": "ok", "info": "Removed all products from cart" })
     } catch (error) {
         return res.json({ "status": "error", "error": error.message })
     }

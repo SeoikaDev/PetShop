@@ -16,7 +16,7 @@ router.put('/cart', auth_middleware.verify_user_role, CartController.updateProdu
 
 router.delete('/cart/:id', auth_middleware.verify_user_role, CartController.deleteProductFromCart);
 
-router.delete('/cart/delete-all', auth_middleware.verify_user_role, CartController.deleteCart);
+router.delete('/cart/delete/all', auth_middleware.verify_user_role, CartController.deleteCart);
 
 module.exports = {
     "router": router

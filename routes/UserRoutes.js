@@ -11,7 +11,7 @@ router.get('/users/current-user', auth_middleware.verify_user_role, UserControll
 
 router.post('/users/change-user-information', auth_middleware.verify_user_role, UserController.changeUserInformation)
 
-router.get('/users/:username'), auth_middleware.verify_admin_role, UserController.getUserByUsername
+router.get('/users/find/:username'), auth_middleware.verify_admin_role, UserController.getUserByUsername
 
 module.exports = {
     "router": router

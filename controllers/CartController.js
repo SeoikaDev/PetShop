@@ -11,11 +11,11 @@ const addProductToCart = async(req, res, next) => {
             return res.json({ "status": "error", "error": "Could not found this user" });
         }
         if (user.cart.length === 0) {
-            user.cart.push({
+            await user.cart.push({
                 product: id,
                 amount: amount
             })
-            await UserModel.updateOne({ email: email }, user)
+            await UserModel.updateOne({ email: email }, { cart: user.cart })
             return res.json({ "status": "ok", "info": "Added product to cart" })
         }
         for (var i = 0; i < user.cart.length; i++) {

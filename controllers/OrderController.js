@@ -45,7 +45,48 @@ const addOrder = async(req, res, next) => {
     }
 }
 
+//Get all orders
+const getAllOrders = async(req, res, next) => {
+    try {
+        const users = await UserModel.find();
+        const orders = [];
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].order.length === 0) {
+                continue;
+            } else {
+                orders.push({
+                    orders: users[i].order,
+                    email: users[i].email,
+                    username: users[i].username
+                });
+            }
+        }
+        return res.json({ "status": "ok", "data": orders })
+    } catch (error) {
+        return res.json({ "status": "error", "error": error.message });
+    }
+}
+
+//Change order status
+const changeOrderStatus = async(req, res, next) => {
+    try {
+        const { email, orderId, status } = req.body;
+        const user = await UserModel.findOne({ email: email }).lean();
+        for (var i = 0; i < user.order.length; i++) {
+            if (user.order[i]._id === orderId) {
+                user.order[i].status = status
+            }
+        }
+        return res.json({ "status": "ok", "info": "Order status changed" })
+    } catch (error) {
+        return res.json({ "status": "error", "error": error.message })
+    }
+}
+
+
 
 module.exports = {
     addOrder,
+    getAllOrders,
+    changeOrderStatus
 }

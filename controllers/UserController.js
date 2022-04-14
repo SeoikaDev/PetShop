@@ -12,6 +12,20 @@ const getUsers = async(req, res, next) => {
     }
 }
 
+const getUserByUsername = async(req, res, next) => {
+    try {
+        const username = req.params.username;
+        const user = await UserModel.findOne({ username: username }).populate('cart.product')
+            .populate('favorite.product').populate('history.product');
+        if (!user) {
+            return res.json({ "status": "error", "error": "Could not found this user" });
+        }
+        return res.json({ "status": "ok", "data": user })
+    } catch (error) {
+        return res.json({ "status": "error", "error": error.message })
+    }
+}
+
 const getCurrentUser = async(req, res, next) => {
     try {
         const email = jwt.decode(req.header('Authorization').split(' ')[1]).email;
@@ -48,5 +62,6 @@ const changeUserInformation = async(req, res, next) => {
 module.exports = {
     getUsers,
     changeUserInformation,
-    getCurrentUser
+    getCurrentUser,
+    getUserByUsername
 }

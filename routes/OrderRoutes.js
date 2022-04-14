@@ -12,6 +12,10 @@ const OrderController = require('../controllers/OrderController');
 
 router.post('/order', auth_middleware.verify_user_role, OrderController.addOrder);
 
+router.get('/order', OrderController.getAllOrders);
+
+router.put('/order', auth_middleware.verify_admin_role, OrderController.changeOrderStatus)
+
 
 module.exports = {
     "router": router
